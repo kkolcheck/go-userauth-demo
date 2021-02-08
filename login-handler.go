@@ -90,7 +90,6 @@ func isValidPayload(w *http.ResponseWriter, r *http.Request) bool {
 		http.Error(*w, "{ \"message\": \"Bad Requeste\" }", http.StatusBadRequest)
 		return false
 	}
-
 	if (!isValidUser(&p)) {
 		fmt.Println(`Not Found`)
 		http.Error(*w, "{ \"message\": \"Not Found\" }", http.StatusNotFound)

@@ -4,7 +4,6 @@ package main
 import (
 	"log"
 	"net/http"
-
 )
 
 func handleRequests() {
