@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// Start server and forward requests to other handlers.
 func handleRequests() {
 	log.Println("Starting server on :8888...")
 	http.HandleFunc("/user/login", loginHandler)
