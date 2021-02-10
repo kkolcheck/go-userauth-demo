@@ -74,7 +74,7 @@ func getUser(p Payload) (User, error){
 	return user, notFoundErr
 }
 
-// Return boolean and error to indicate if user was found.
+// Return an error if no user was found.
 func isUserFound(p Payload) (error) {
 	_, err := getUser(p)
 	if err != nil {
@@ -104,7 +104,7 @@ func isValidToken(p Payload) bool {
 	return true;
 }
 
-// Return boolean indicating if JSON.
+// Return an error if payload decode fails.
 func decodePayload(p *Payload, r *http.Request) error {
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&p)
@@ -115,7 +115,8 @@ func decodePayload(p *Payload, r *http.Request) error {
 	return nil	
 }
 
-// POST Login Handler validates a user's username, password, and token.
+// POST Login Handler will validate a login request.
+// The handler expects a payload containing a user's username, password, and a valid security token.
 func postLoginHandler(w http.ResponseWriter, r *http.Request) {
 	var p Payload
 	decodeErr := decodePayload(&p, r)
