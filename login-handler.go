@@ -70,18 +70,9 @@ func getUser(p Payload) (User, error){
 			return user, nil
 		}
 	}
+	fmt.Println("User not found")
 	notFoundErr := errors.New("User not found")
 	return user, notFoundErr
-}
-
-// Return an error if no user was found.
-func isUserFound(p Payload) (error) {
-	_, err := getUser(p)
-	if err != nil {
-		fmt.Println(`User not found`)
-		return err
-	}
-	return nil
 }
 
 // Return boolean indicating that the token matches the current time in hhmm format. Leading zeroes are dropped.
@@ -125,7 +116,7 @@ func postLoginHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := isUserFound(p)
+	_, err := getUser(p)
 	if err != nil {
 		if (err.Error() == "Error opening user file" ||
 			err.Error() == "Error reading user file" ||
